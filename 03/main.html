@@ -1,0 +1,54 @@
+<textarea id="a"></textarea>
+<button onclick="f1()">part 1</button>
+<button onclick="f2()">part 2</button>
+<p id="output"></p>
+
+<script>
+	function f1(){
+		var input = document.getElementById("a");
+		var regex = /mul\(\d+,\d+\)/g;
+		// get input
+		var txt = input.value;
+		console.log(txt);
+		// match regex
+		var array = txt.match(regex);
+		console.log(array);
+		// for each get x, y
+		var regexn = /\((\d+),(\d+)\)/;
+		var sum = 0;
+		array.forEach(e => {
+			var xy = e.match(regexn);
+			console.log(xy[1], xy[2]);
+			sum += (xy[1] * xy[2]);
+		});
+		document.getElementById("output").innerText = sum;
+	}
+
+	function f2(){
+		var input = document.getElementById("a");
+		var regex = /mul\(\d+,\d+\)|don\'t\(\)|do\(\)/g;
+		// get input
+		var txt = input.value;
+		console.log(txt);
+		// match regex
+		var array = txt.match(regex);
+		console.log(array);
+		// for each get x, y
+		var regexn = /\((\d+),(\d+)\)/;
+		var sum = 0;
+		for(var i = 0; i < array.length; i++){
+			if(array[i] == "don't()"){
+				do{
+					i++;
+				}while(array[i] != "do()" && i < array.length);
+			}else if(array[i] == "do()"){
+				
+			}else{
+				var xy = array[i].match(regexn);
+				console.log(array[i] + " --> " + xy);
+				sum += (xy[1] * xy[2]);
+			}
+		}
+		document.getElementById("output").innerText = sum;
+	}
+</script>
